@@ -1,0 +1,5 @@
+project( DisplayImage )
+find_package( OpenCV REQUIRED )
+add_executable( DisplayImage DisplayImage.cpp )
+#SET_TARGET_PROPERTIES(DisplayImage PROPERTIES LINKER_LANGUAGE CPP)
+target_link_libraries( DisplayImage ${OpenCV_LIBS} )

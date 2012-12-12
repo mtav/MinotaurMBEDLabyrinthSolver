@@ -1,0 +1,66 @@
+MBED-based labyrinth solver project created for the ACE (Arm Campus Engineering) challenge at the University of Bristol.
+
+License:
+========
+Everything under GPLv3 unless otherwise specified.
+
+Exceptions:
+-----------
+-openCV-GUI/QtCvExample.orig/ : from http://www.qtcentre.org/threads/43056-Qt-OpenCV-simple-example?s=c397b1b1ece971320ed7936d428b4a32 , cf openCV-GUI/QtCvExample.orig/README.txt
+-serial/ : from http://www.teuniz.net/RS-232/, GPLv2
+
+Quick guide:
+============
+Qt-independent things:
+----------------------
+-serial: serial port communication for GNU/Linux
+-test0: openCV DisplayImage example
+-test1: openCV Canny filter example
+-test2a: maze solver 
+-test2b: printMaze function
+-test3: Contains quite a few useful functions.
+-test4: openCV how_to_scan_images example
+
+Qt-openCV GUIs:
+---------------
+-openCV-GUI/openCV-GUI: main GUI, transforming a picture into a series of numbers representing the maze and allowing sending that string to stdout
+-openCV-GUI/QtCvExample.orig: Basic Qt-OpenCV example with Canny edge-detect filter implementation on a streaming video feed or video file.
+-openCV-GUI/QtCvExample: Hacked-up version of openCV-GUI/QtCvExample.orig
+-openCV-GUI/openCV-integration: Qt-openCV compile test + QVector<QVector<QString> > test
+
+Usage of openCV-GUI:
+====================
+General usage:
+--------------
+-"File->Open" or "Open" button to load picture. Should create a corresponding matrix of 0,1,2,3 values in the textbox.
+-Click send data to send whatever is in the textbox to stdout
+
+To send the data to the MBED:
+-----------------------------
+-open the /dev/ttyACM0 port with cutecom or similar, set the baudrate to 115200
+-run openCV-GUI with "./openCV-GUI >/dev/ttyACM0"
+-uncheck "line endings" before opening a picture
+-"File->Open" or "Open" button to load picture. Should create a corresponding matrix of 0,1,2,3 values in the textbox.
+-Click send data
+
+Notes:
+------
+-The nRows/nCols spinboxes allow you to define how many rows and columns should be in the generated matrix.
+-The other "Load image" button was/is meant for a dynamically updating processed picture, i.e. should make it easier to test out other processing algorithms.
+But there seem to be some problems with the pictures displayed that way, especially for pictures with just a few pixels. Probably an error in the conversion from OpenCV::Mat to OpenCV::IplImage.
+
+Compiling:
+==========
+For cmake based projects: cmake . && make
+For qmake based projects: qmake && make
+
+Dependencies:
+=============
+-openCV
+-Qt4
+Note: You can use QtCreator for easy GUI development.
+
+TODO:
+=====
+-Add MBED code for the maze solver and servo controls.
+-Finish maze recognition.
